@@ -2,7 +2,7 @@
   <RouterView />
   <van-tabbar v-model="active">
     <van-tabbar-item v-for="item in router.options.routes[0].children" :key="item.path" :icon="item.meta.icon"
-      :to="'/' + item.path">
+      :url="`#/${item.path}`">
       {{ item.meta.name }}
     </van-tabbar-item>
   </van-tabbar>
