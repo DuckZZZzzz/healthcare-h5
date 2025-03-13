@@ -32,9 +32,9 @@
     <van-cell-group class="card">
       <div class="header-text">预约信息</div>
       <van-cell 
-      v-for="(item, key) in makeInfo"
-      :key="key"
-      :title="item"
+      v-for="(value, key) in makeInfo"
+      :key="value"
+      :title="value"
       :value="formatData(key)"
       >
       </van-cell>
@@ -42,9 +42,9 @@
     <van-cell-group class="card">
       <div class="header-text">订单信息</div>
       <van-cell 
-      v-for="(item, key) in orderDetail"
-      :key="key"
-      :title="item"
+      v-for="(value, key) in orderDetail"
+      :key="value"
+      :title="value"
       :value="formatData(key)"
       >
       </van-cell>
@@ -124,17 +124,18 @@ const orderDetail = {
   out_trade_no: '订单编号'
 }
 const formatData = (key) => {
-  console.log(orderInfo[key])
   if (key.indexOf(".") === -1) {
     if (key === "order_start_time") {
       return formatTimestamp(orderInfo[key]);
     }
     return orderInfo[key];
   }
-  let arr = key.split(".").reduce((o, p) => {
-    return (o || {})[p];
-  }, orderInfo);
-  return arr;
+  let arr = key.split(".")
+  if(orderInfo[arr[0]]) {
+    console.log(orderInfo[arr[0]][arr[1]]);
+    return orderInfo[arr[0]][arr[1]]
+  }
+
 }
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);

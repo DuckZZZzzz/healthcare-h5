@@ -61,10 +61,15 @@ const goOrder = (id) => {
 }
 // 快捷入口
 const goOrderTwo = (index) => {
-  router.push(`/createOrder?id=${homeData.hospitals[index].id}`)
+  console.log(homeData.hospitals[index])
+  router.push(`/createOrder?hospital_name=${homeData.hospitals[index].name}&hospital_id=${homeData.hospitals[index].id}`)
 }
 </script>
 <style lang="less" scoped>
+.van-swipe-item {
+  display: flex;
+  justify-content: center;
+}
 .header {
   display: flex;
   justify-content: space-between;

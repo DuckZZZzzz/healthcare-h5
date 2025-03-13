@@ -77,6 +77,7 @@
     }
     return sfmt + suffix;
   };
+
   </script>
   
   <style></style>

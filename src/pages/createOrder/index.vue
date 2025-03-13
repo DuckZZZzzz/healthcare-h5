@@ -78,7 +78,7 @@
 
 <script setup>
 import { ref, reactive, getCurrentInstance, onMounted, computed } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute} from 'vue-router'
 import Progress from '../../components/Progress.vue';
 import Qrcode from 'qrcode'
 
@@ -143,6 +143,11 @@ const onCompanionConfirm = (item) => {
 }
 
 onMounted(async () => {
+  const route = useRoute()
+  if(route.query) {
+    form.hospital_name = route.query.hospital_name
+    form.hospital_id = Number(route.query.hospital_id)
+  }
   const { data } = await proxy.$api.h5Companion()
   Object.assign(createInfo, data.data)
   console.log(createInfo)

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: "https:/v3pz.itndedu.com/v3pz",
+  baseURL: "https://v3pz.itndedu.com/v3pz",
   timeout: 5000,
   headers: {
     terminal: "h5",
@@ -14,7 +14,7 @@ service.interceptors.request.use(
     // 在发送请求之前做些什么
     const token = localStorage.getItem("h5_token");
     // 不需要添加token的api
-    const whiteList = ["/get/code", "/user/authentication", "/login"];
+    const whiteList = ["/login"];
     if (token || whiteList.includes(config.url)) {
       // h-token是文档中要求的请求头的名称
       config.headers["h-token"] = token;

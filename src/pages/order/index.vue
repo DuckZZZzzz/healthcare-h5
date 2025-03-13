@@ -8,7 +8,7 @@
       <van-tab title="已完成" name="3"></van-tab>
       <van-tab title="已取消" name="4"></van-tab>
     </van-tabs>
-    <van-row v-for="item in orderList" :key="out_trade_no" @click="goDetail(item.out_trade_no)">
+    <van-row v-for="item in orderList" :key="item.out_trade_no" @click="goDetail(item.out_trade_no)">
       <van-col span="5">
         <van-image width="50" height="50" radius="5" :src="item.serviceImg"></van-image>
       </van-col>
@@ -32,8 +32,12 @@ import { onMounted, getCurrentInstance, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Counter from '../../components/counter.vue';
 
+
+onMounted(() => {
+  getOrderList(active.value)
+})
 const router = useRouter();
-const active = ref("");
+const active = ref("0");
 const { proxy } = getCurrentInstance();
 const orderList = ref([]);
 const colorMap = {
@@ -50,9 +54,10 @@ const getOrderList = async (state) => {
     item.timer = item.order_start_time + 7200000 - Date.now()
   })
   orderList.value = data.data
-
 }
+
 const onClickTab = (item) => {
+  currentTab.value = item
   getOrderList(item)
 }
 
@@ -61,6 +66,19 @@ const goDetail = (orderId) => {
   router.push(`/detail?oid=${orderId}`)
 }
 
+let currentTab = ref(0)  
+const updateTimer = () => {
+  orderList.value = orderList.value.map(item => ({
+    ...item,
+    // 重新计算剩余时间
+    timer: item.order_start_time + 7200000 - Date.now()
+  }));
+};
+// 监听页面可见性变化
+  document.addEventListener('visibilitychange', () => {
+    console.log('enefe')
+    updateTimer()
+});
 </script>
 <style lang="less" scoped>
 .container {

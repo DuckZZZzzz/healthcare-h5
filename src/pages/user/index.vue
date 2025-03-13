@@ -96,7 +96,7 @@ const logout = () => {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .container {
   background-color: #f0f0f0;
   height: 100vh;

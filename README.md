@@ -1,3 +1,7 @@
+# 一句话介绍
+这是一个医疗陪诊手机端项目，用于下单陪诊服务。
+
+
 # 开发笔记
 
 ## getCurrentInstance 方法
@@ -48,3 +52,8 @@ ref声明的响应式变量赋值用xxx.value
 reactive声明的响应式变量赋值用Object.assign(xxx, data.data)
 
 ## 怎么解决应用的计时器在后台被js暂停的问题？
+监听visibilitychange，每次页面可见性变化时，重新获取订单列表来计算倒计时
+let currentTab = ref(0)  // 监听页面可见性变化
+  document.addEventListener('visibilitychange', () => {
+    getOrderList(currentTab.value)
+});
